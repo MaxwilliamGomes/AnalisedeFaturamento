@@ -1,0 +1,27 @@
+table '% Margem Segurança'
+	lineageTag: 0ca6556a-1520-486d-90bd-d8729ab6ec4a
+
+	measure 'Valor % Margem Segurança' = SELECTEDVALUE('% Margem Segurança'[% Margem Segurança], 0.4)
+		lineageTag: b3577e10-5af0-4191-bb43-4f605724d838
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column '% Margem Segurança'
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 543e9f00-080d-4209-bb43-acc30c4dbb6c
+		summarizeBy: none
+		sourceColumn: [Value]
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 0
+				}
+
+		annotation SummarizationSetBy = User
+
+	partition '% Margem Segurança' = calculated
+		mode: import
+		source = GENERATESERIES(0, 1, 0.05)
+
+	annotation PBI_Id = 36b4880a5b0648dbb14c3b1ae8acd344
+

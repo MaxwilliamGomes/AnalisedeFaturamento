@@ -50,6 +50,14 @@ table dProdutos
 
 		annotation SummarizationSetBy = Automatic
 
+	column categoria
+		dataType: string
+		lineageTag: 9fda695b-2087-416d-b2aa-d116fab73c8c
+		summarizeBy: none
+		sourceColumn: categoria
+
+		annotation SummarizationSetBy = Automatic
+
 	partition dProdutos = m
 		mode: import
 		source =

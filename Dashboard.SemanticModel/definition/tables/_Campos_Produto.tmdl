@@ -1,0 +1,49 @@
+table _Campos_Produto
+	lineageTag: 7db266b9-25f4-474e-abaa-92d48ff282d0
+
+	column _Campos_Produto
+		lineageTag: 057d2995-48de-416c-a6bc-362a4dbfe731
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_Campos_Produto Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_Campos_Produto Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_Campos_Produto Campos'
+		isHidden
+		lineageTag: 086ed796-721d-44d8-b3ae-1001f0952ffa
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_Campos_Produto Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_Campos_Produto Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: 042f6832-bffe-4bf9-945e-12ddf94d6f2e
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Campos_Produto = calculated
+		mode: import
+		source =
+				{
+				    ("Produto", NAMEOF('dProdutos'[produto_simplif]), 0),
+				    ("Produto e Sabor", NAMEOF('dProdutos'[produto_sabor]), 1),
+				    ("Sabor", NAMEOF('dProdutos'[sabor]), 2)
+				}
+
+	annotation PBI_Id = 66e4a2d598154c8e8a74aea7bc7da12f
+

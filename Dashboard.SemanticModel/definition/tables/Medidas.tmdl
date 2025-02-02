@@ -17,9 +17,8 @@ table Medidas
 		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Margem Bruta %' = DIVIDE([Margem Bruta R$], [Faturamento])
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 6fd5e50a-87b4-4744-827b-f8fd35d79317
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'Total Pedidos' = DISTINCTCOUNT(fPedidos[idpedido])
 		formatString: 0
@@ -74,9 +73,8 @@ table Medidas
 			SAMEPERIODLASTYEAR(dCalendario[Data])
 			)
 			```
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: e519eafd-9585-4630-ba7a-bc8b28fb43c5
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'LY Total Pedidos' = ```
 			
@@ -134,9 +132,8 @@ table Medidas
 			
 			
 			DIVIDE([Margem Bruta %] - [LY Margem Bruta %], [LY Margem Bruta %])
+		formatString: 0.00%;-0.00%;0.00%
 		lineageTag: 316b9ee3-116e-42b0-8b9c-2f2f3c896a9b
-
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
 
 	measure 'YoY Ticket Médio' =
 			
@@ -154,6 +151,44 @@ table Medidas
 
 	measure 'vs Ano Anterior' = "vs. " &COALESCE(SELECTEDVALUE(dCalendario[Ano]) -1 &":", "-")
 		lineageTag: 7d08e180-46a5-43ae-b720-17cf74d57cd0
+
+	measure 'Média Pedidos por Dia' =
+			
+			
+			DIVIDE([Total Pedidos], DISTINCTCOUNT(fPedidos[data]))
+		lineageTag: 336d69f1-9392-4bdd-b701-348889800ea8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Preço Unitário Médio' =
+			
+			
+			DIVIDE([Faturamento], [Qtd Vendida])
+		lineageTag: 96d3010d-066c-42a0-807d-b0e6e79a0013
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Custo Unitário' = ```
+			
+			
+			DIVIDE([Custos], [Qtd Vendida])
+			
+			```
+		lineageTag: dc5d6885-f416-40ed-81bf-e21e0d60e6d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Preço min recomendado' =
+			
+			
+			DIVIDE(- [Custo Unitário], '% Margem Segurança'[Valor % Margem Segurança] - 1)
+		lineageTag: 46fc597b-e2f1-473f-b453-68838ee8d90a
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Var Preço' = DIVIDE([Preço Unitário Médio] - [Preço min recomendado], [Preço min recomendado])
+		formatString: 0.00%;-0.00%;0.00%
+		lineageTag: 1444043f-469b-47d5-bb36-d4443903f8e6
 
 	column Value
 		isHidden
