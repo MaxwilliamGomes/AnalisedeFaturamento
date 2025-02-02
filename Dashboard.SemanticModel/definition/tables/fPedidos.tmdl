@@ -1,0 +1,82 @@
+table fPedidos
+	lineageTag: b484245a-9b53-48e2-8c41-a24e4c788a22
+
+	column data
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 2a26f381-7470-4e67-9743-7bb4ebebaa5a
+		summarizeBy: none
+		sourceColumn: data
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column idpedido
+		dataType: int64
+		formatString: 0
+		lineageTag: 05859d18-b497-40f9-b195-2584e149098a
+		summarizeBy: sum
+		sourceColumn: idpedido
+
+		annotation SummarizationSetBy = Automatic
+
+	column faturamento
+		dataType: double
+		lineageTag: f0b9ce07-09e1-4c82-b24d-ca4accfa3c22
+		summarizeBy: sum
+		sourceColumn: faturamento
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column custo
+		dataType: double
+		lineageTag: 7b7e90c8-0551-4a44-9f74-1f71b3acdef6
+		summarizeBy: sum
+		sourceColumn: custo
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column idprodutos
+		dataType: int64
+		formatString: 0
+		lineageTag: 888026d5-ac9c-4e20-a0ea-504148115f60
+		summarizeBy: none
+		sourceColumn: idprodutos
+
+		annotation SummarizationSetBy = Automatic
+
+	column qtd
+		dataType: int64
+		formatString: 0
+		lineageTag: 100814ee-4bf2-4a5a-a9ae-63a0f2119b7b
+		summarizeBy: sum
+		sourceColumn: qtd
+
+		annotation SummarizationSetBy = Automatic
+
+	column unid
+		dataType: string
+		lineageTag: 9427fb1f-b88d-4270-aca5-7d750f4f5ba4
+		summarizeBy: none
+		sourceColumn: unid
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fPedidos = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("localhost", "BaseFaturamento"),
+				    public_gold_fpedidos = Fonte{[Schema="public",Item="gold_fpedidos"]}[Data]
+				in
+				    public_gold_fpedidos
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

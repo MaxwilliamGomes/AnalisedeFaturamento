@@ -1,0 +1,18 @@
+relationship AutoDetected_87c20994-5bfd-40a0-831f-0179e6806510
+	fromColumn: fPedidos.idprodutos
+	toColumn: dProdutos.idprodutos
+
+relationship 45cbfd2e-0b4b-4926-802a-bf9ccba7ccc9
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dCalendario.Data
+	toColumn: LocalDateTable_d3457d9d-314e-4e64-989c-c62703b0f435.Date
+
+relationship b3a76c6c-15a7-4ece-965b-38818b673af5
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dCalendario.InicioMes
+	toColumn: LocalDateTable_5086e004-ac0a-46c6-9b9d-c88ca1abd2f4.Date
+
+relationship 9d80c131-a973-2f07-1e3b-631274c8f83b
+	fromColumn: fPedidos.data
+	toColumn: dCalendario.Data
+

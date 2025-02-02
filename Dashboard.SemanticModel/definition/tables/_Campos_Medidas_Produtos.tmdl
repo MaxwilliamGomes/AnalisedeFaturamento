@@ -1,0 +1,52 @@
+table _Campos_Medidas_Produtos
+	lineageTag: 5d97fbea-519d-48e7-847f-909974cece7f
+
+	column _Campos_Medidas_Produtos
+		lineageTag: 584c023c-f7d4-42a2-b7a0-79e256b960e5
+		summarizeBy: none
+		sourceColumn: [Value1]
+		sortByColumn: '_Campos_Medidas_Produtos Pedido'
+
+		relatedColumnDetails
+			groupByColumn: '_Campos_Medidas_Produtos Campos'
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_Campos_Medidas_Produtos Campos'
+		isHidden
+		lineageTag: a58de17b-82e1-4e03-8c8a-350ea272f845
+		summarizeBy: none
+		sourceColumn: [Value2]
+		sortByColumn: '_Campos_Medidas_Produtos Pedido'
+
+		extendedProperty ParameterMetadata =
+				{
+				  "version": 3,
+				  "kind": 2
+				}
+
+		annotation SummarizationSetBy = Automatic
+
+	column '_Campos_Medidas_Produtos Pedido'
+		isHidden
+		formatString: 0
+		lineageTag: df68d9c5-4dce-4847-a2ab-8cecadc3fa48
+		summarizeBy: sum
+		sourceColumn: [Value3]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Campos_Medidas_Produtos = calculated
+		mode: import
+		source =
+				{
+				    ("Faturamento", NAMEOF('Medidas'[Faturamento]), 0),
+				    ("Custos", NAMEOF('Medidas'[Custos]), 1),
+				    ("Margem Bruta R$", NAMEOF('Medidas'[Margem Bruta R$]), 2),
+				    ("Margem Bruta %", NAMEOF('Medidas'[Margem Bruta %]), 3),
+				    ("Total Pedidos", NAMEOF('Medidas'[Total Pedidos]), 4),
+				    ("Qtd Vendida", NAMEOF('Medidas'[Qtd Vendida]), 5)
+				}
+
+	annotation PBI_Id = 6bfe691ae35c400cad4d4574c347391e
+

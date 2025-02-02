@@ -1,0 +1,65 @@
+table dProdutos
+	lineageTag: 7254deb2-d4fc-4ebc-b417-e1ac7b0f1b25
+
+	column idprodutos
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d25e033-8364-4f88-8751-e5e0e8771fe2
+		summarizeBy: none
+		sourceColumn: idprodutos
+
+		annotation SummarizationSetBy = Automatic
+
+	column produto_sabor
+		dataType: string
+		lineageTag: ba6eef46-4964-44d9-b04a-20228ba86507
+		summarizeBy: none
+		sourceColumn: produto_sabor
+
+		annotation SummarizationSetBy = Automatic
+
+	column produto_simplif
+		dataType: string
+		lineageTag: fc454d3c-754b-49f1-ae8d-59fd95d61125
+		summarizeBy: none
+		sourceColumn: produto_simplif
+
+		annotation SummarizationSetBy = Automatic
+
+	column produto_simplif_sabor
+		dataType: string
+		lineageTag: fbe82b60-c852-416e-b633-6238f1e68b6b
+		summarizeBy: none
+		sourceColumn: produto_simplif_sabor
+
+		annotation SummarizationSetBy = Automatic
+
+	column sabor
+		dataType: string
+		lineageTag: a9b2d347-738f-478b-b421-01c616ae64b9
+		summarizeBy: none
+		sourceColumn: sabor
+
+		annotation SummarizationSetBy = Automatic
+
+	column tipo
+		dataType: string
+		lineageTag: 736e0a46-74cb-4cf4-b2f8-f0a89a8eea01
+		summarizeBy: none
+		sourceColumn: tipo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dProdutos = m
+		mode: import
+		source =
+				let
+				    Fonte = PostgreSQL.Database("localhost", "BaseFaturamento"),
+				    public_gold_dprodutos = Fonte{[Schema="public",Item="gold_dprodutos"]}[Data]
+				in
+				    public_gold_dprodutos
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+
