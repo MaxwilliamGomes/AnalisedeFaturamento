@@ -2,19 +2,22 @@ table Medidas
 	lineageTag: 3a787086-ebf7-4970-8543-da8b93c1388d
 
 	measure Faturamento = SUM(fPedidos[faturamento])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: 41a4287a-5077-4821-af1d-b97cc090d814
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure Custos = SUM(fPedidos[custo])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: a86ecb01-eb44-4f2f-be73-fc8f8ddf412d
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'Margem Bruta R$' = [Faturamento] - [Custos]
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: 7e664a06-3e4f-4970-a23b-7d138d00f145
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'Margem Bruta %' = DIVIDE([Margem Bruta R$], [Faturamento])
 		formatString: 0.00%;-0.00%;0.00%
@@ -40,9 +43,10 @@ table Medidas
 			SAMEPERIODLASTYEAR(dCalendario[Data])
 			)
 			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: cb802503-89ad-4681-8049-8b930151d149
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'LY Custos' = ```
 			
@@ -51,9 +55,10 @@ table Medidas
 			SAMEPERIODLASTYEAR(dCalendario[Data])
 			)
 			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: cbd119ab-87e3-4570-8b5b-3d39bf07f7f8
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'LY Margem Bruta R$' = ```
 			
@@ -62,9 +67,10 @@ table Medidas
 			SAMEPERIODLASTYEAR(dCalendario[Data])
 			)
 			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: 325f810b-7440-4a9b-afea-84dc9adcd102
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'LY Margem Bruta %' = ```
 			
@@ -164,9 +170,10 @@ table Medidas
 			
 			
 			DIVIDE([Faturamento], [Qtd Vendida])
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: 96d3010d-066c-42a0-807d-b0e6e79a0013
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'Custo Unitário' = ```
 			
@@ -174,17 +181,19 @@ table Medidas
 			DIVIDE([Custos], [Qtd Vendida])
 			
 			```
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: dc5d6885-f416-40ed-81bf-e21e0d60e6d8
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'Preço min recomendado' =
 			
 			
 			DIVIDE(- [Custo Unitário], '% Margem Segurança'[Valor % Margem Segurança] - 1)
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
 		lineageTag: 46fc597b-e2f1-473f-b453-68838ee8d90a
 
-		annotation PBI_FormatHint = {"isGeneralNumber":true}
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
 
 	measure 'Var Preço' = DIVIDE([Preço Unitário Médio] - [Preço min recomendado], [Preço min recomendado])
 		formatString: 0.00%;-0.00%;0.00%
